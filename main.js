@@ -4,8 +4,7 @@ const pokemonList = document.getElementById("pokemons");
 const loadPokemons = async () => {
     try {
         const response = await fetch(
-            `${POKEAPI_URL}/pokemon
-            `).then(response => response.json());
+            `${POKEAPI_URL}/pokemon`).then(response => response.json());
         response.results.forEach(pokemon => {
             const option = document.createElement("option");
             option.textContent = pokemon.name;
@@ -28,6 +27,15 @@ const pokemonSelected = async (pokemonUrl) => {
         const pokemonName = document.getElementById("pokemon-name");
         const pokemonStats = document.getElementById("pokemon-stats");
         const pokemonAbilities = document.getElementById("pokemon-abilities");
+        const pokemonClass = document.getElementById("tipo");
+
+        pokemonImage.addEventListener('mouseover', () => {
+            pokemonClass.textContent = `Tipo: ${response.types[0].type.name}`;
+            });
+
+        pokemonImage.addEventListener('mouseout', () => { 
+            pokemonClass.textContent = '';}
+            );
 
         pokemonImage.src = response.sprites.front_default;
         pokemonName.textContent = response.name;
@@ -52,6 +60,8 @@ const pokemonSelected = async (pokemonUrl) => {
         console.error("Error fetching pokemon details:", error);
     }
 }
+
+
 // fetch(${POKEAPI_URL}/pokemon)
 // .then(response => response.json())
 // .then(data => {
